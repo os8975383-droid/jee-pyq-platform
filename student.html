@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}JEE PYQ Practice{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">FOCUSED PRACTICE · REAL PROGRESS</span>
+    <h1>Prepare smarter.<br><span>One question at a time.</span></h1>
+    <p>Build a focused practice test from your JEE question bank and review your performance after submission.</p>
+  </div>
+  <div class="hero-badge"><strong>JEE</strong><span>MAIN & ADVANCED</span></div>
+</section>
+<section class="section-heading"><div><span class="eyebrow">YOUR PRACTICE</span><h2>Available tests</h2></div></section>
+{% if tests %}
+  <div class="test-grid">
+    {% for test in tests %}
+      <article class="card test-card">
+        <div class="test-icon">✦</div>
+        <span class="tag">CUSTOM TEST</span>
+        <h3>{{ test.title }}</h3>
+        <p class="muted">{{ test.duration_minutes }} minutes · Timed practice</p>
+        <form action="{{ url_for('start_test') }}" method="post" class="start-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <label for="student-name-{{ test.id }}">Your name</label>
+          <input id="student-name-{{ test.id }}" name="student_name" required maxlength="100" placeholder="Enter your name" autocomplete="name">
+          <input type="hidden" name="test_id" value="{{ test.id }}">
+          <button class="button primary full" type="submit">Start test <span aria-hidden="true">→</span></button>
+        </form>
+      </article>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="empty-state"><span class="empty-icon">✦</span><h3>No published tests yet</h3><p>Your administrator can publish a custom test from the question bank.</p></div>
+{% endif %}
+{% endblock %}

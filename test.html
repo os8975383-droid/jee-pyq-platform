@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ test.title }} · JEE PYQ Practice{% endblock %}
+{% block head %}<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>{% endblock %}
+{% block content %}
+<section class="exam-header">
+  <div><span class="eyebrow">TIMED PRACTICE</span><h1>{{ test.title }}</h1><p class="muted">Select one answer for each question. You can move between questions before submitting.</p></div>
+  <div class="timer-box" aria-live="polite"><span>TIME LEFT</span><strong id="timer" data-seconds="{{ duration_seconds }}">--:--</strong></div>
+</section>
+<form id="exam-form" method="post" action="{{ url_for('submit_test') }}" data-test-id="{{ test.id }}" data-attempt-key="{{ attempt_key }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="exam-layout">
+    <section class="card question-card">
+      {% for question in questions %}
+        <article class="question-panel{% if not loop.first %} is-hidden{% endif %}" data-question="{{ loop.index0 }}">
+          <div class="question-meta"><span class="tag">{{ question.subject }}</span><span class="muted">{{ question.chapter }}</span><span class="question-count">Question {{ loop.index }} of {{ questions|length }}</span></div>
+          <h2 class="question-prompt math-content">{{ question.question_text }}</h2>
+          {% if question.image_url %}<img class="question-image" src="{{ question.image_url }}" alt="Question diagram" loading="lazy">{% endif %}
+          <div class="options-list">
+            {% for key in ["A", "B", "C", "D"] %}
+              <label class="option-row">
+                <input type="radio" name="answer_{{ question.id }}" value="{{ key }}">
+                <span class="option-key">{{ key }}</span><span class="math-content">{{ question.options.get(key, "") }}</span>
+              </label>
+            {% endfor %}
+          </div>
+        </article>
+      {% endfor %}
+      <div class="question-controls"><button type="button" class="button secondary" id="previous-button">← Previous</button><button type="button" class="button primary" id="next-button">Next question →</button></div>
+    </section>
+    <aside class="card navigator-card">
+      <h3>Question navigator</h3><p class="muted small">Answered questions are highlighted.</p>
+      <div class="question-navigator">
+        {% for question in questions %}<button type="button" class="nav-dot{% if loop.first %} current{% endif %}" data-go="{{ loop.index0 }}" aria-label="Go to question {{ loop.index }}">{{ loop.index }}</button>{% endfor %}
+      </div>
+      <div class="navigator-legend"><span><i class="legend-dot answered"></i>Answered</span><span><i class="legend-dot"></i>Not answered</span></div>
+      <button type="submit" class="button danger full submit-test">Submit test</button>
+    </aside>
+  </div>
+</form>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/test.js') }}" defer></script>{% endblock %}

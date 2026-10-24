@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Import questions · Admin{% endblock %}
+{% block content %}
+<section class="form-page narrow">
+  <a class="back-link" href="{{ url_for('admin_dashboard') }}">← Back to dashboard</a>
+  <span class="eyebrow">BULK QUESTION BANK</span><h1>Import questions from CSV</h1>
+  <p class="muted">Upload a UTF-8 CSV using the documented template. The first pass validates every row and saves nothing; fix all errors before importing. Duplicate questions already in the bank are skipped.</p>
+  <div class="card import-guide"><h3>Required columns</h3><code>{{ " · ".join(["exam", "year", "session", "subject", "chapter", "topic", "question_text", "image_url", "option_a", "option_b", "option_c", "option_d", "correct_answer", "solution", "marks_correct", "marks_incorrect"]) }}</code>
+    <p>Exam, year, session, topic, solution, and image URL may be blank for practice questions. Subject is required. For fields supplied, use exam values <strong>JEE Main</strong> or <strong>JEE Advanced</strong> and subject values <strong>Physics</strong>, <strong>Chemistry</strong>, or <strong>Mathematics</strong>. Correct answer is A/B/C/D. Duplicate questions are detected using subject, chapter, question text, and options.</p>
+    <a href="{{ url_for('sample_questions_csv') }}">Download the 30 practice-question CSV</a>
+  </div>
+  <form method="post" enctype="multipart/form-data" class="card upload-card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="file">CSV file</label><input id="file" type="file" name="file" accept=".csv,text/csv" required>
+    <p class="field-hint">Maximum 2 MB and 500 questions per import.</p>
+    <button class="button secondary" type="submit">Validate CSV</button>
+  </form>
+  {% if preview %}
+    <section class="card validation-result">
+      {% if errors %}
+        <h2>Validation found {{ errors|length }} issue(s)</h2><p>Nothing was saved. Correct the CSV and validate it again.</p>
+        <ul class="error-list">{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+      {% else %}
+        {% if count %}
+          <h2>Ready to import {{ count }} new question(s)</h2><p>Validation passed. {{ duplicate_count }} duplicate(s) will be skipped. Re-select the same CSV file to confirm and save.</p>
+          <form method="post" enctype="multipart/form-data"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><input type="hidden" name="confirm" value="yes"><label for="confirm-file">CSV file to import</label><input id="confirm-file" type="file" name="file" accept=".csv,text/csv" required><button class="button primary" type="submit">Import {{ count }} questions</button></form>
+        {% else %}
+          <h2>No new questions to import</h2><p>All {{ duplicate_count }} valid question(s) already exist in the bank. Nothing was saved.</p>
+        {% endif %}
+      {% endif %}
+    </section>
+  {% endif %}
+</section>
+{% endblock %}

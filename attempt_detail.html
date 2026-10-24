@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Attempt review · Admin{% endblock %}
+{% block content %}
+<section class="dashboard-heading"><div><a class="back-link" href="{{ url_for('admin_dashboard') }}">← Dashboard</a><span class="eyebrow">ATTEMPT REVIEW</span><h1>{{ attempt.student_name }} · {{ attempt.test_title }}</h1><p class="muted">{{ attempt.score }} / {{ attempt.maximum_score }} marks · {{ attempt.percentage }}% marks · {{ attempt.accuracy_percentage }}% accuracy · Submitted {{ attempt.submitted_at }}</p></div><a class="button secondary" href="{{ url_for('admin_dashboard') }}">Back</a></section>
+<section class="performance-grid">
+  <div class="card performance-card"><span class="eyebrow">ANSWER SUMMARY</span><h2>{{ attempt.correct_count }} correct</h2><p>{{ attempt.wrong_count }} incorrect · {{ attempt.unattempted_count }} unattempted</p></div>
+  <div class="card performance-card"><span class="eyebrow">CHAPTER PERFORMANCE</span>
+    {% for chapter, values in chapter_counts.items() %}<div class="topic-performance"><div><strong>{{ chapter }}</strong><span>{{ values.correct }}/{{ values.total }}</span></div><div class="mini-progress"><i style="width: {{ values.correct / values.total * 100 }}%"></i></div></div>{% else %}<p class="muted">No question details available.</p>{% endfor %}
+  </div>
+  <div class="card performance-card"><span class="eyebrow">TOPICS TO REVISIT</span>
+    {% for chapter, values in weak_topics[:5] %}<div class="weak-topic"><span>{{ chapter }}</span><strong>{{ ((values.correct / values.total) * 100)|round|int }}%</strong></div>{% else %}<p class="muted">No topic data available.</p>{% endfor %}
+  </div>
+</section>
+<section class="section-heading"><div><span class="eyebrow">DETAILED REVIEW</span><h2>Answers and solutions</h2></div></section>
+<div class="review-list">{% for question in review %}
+  <article class="card review-card"><header><span class="tag">{{ question.subject }} · {{ question.chapter }} / {{ question.topic }}</span><span class="review-status {% if question.chosen == question.correct_answer %}good{% elif not question.chosen %}neutral{% else %}bad{% endif %}">{% if not question.chosen %}Blank{% elif question.is_correct %}Correct{% else %}Incorrect{% endif %}</span></header>
+    <h3>{{ question.question_text }}</h3>{% if question.image_url %}<img class="question-image" src="{{ question.image_url }}" alt="Question diagram" loading="lazy">{% endif %}<p class="answer-line">Chosen: <strong>{{ question.chosen or "Blank" }}</strong> · Correct: <strong>{{ question.correct_answer }}</strong></p><p class="solution"><strong>Explanation</strong><br>{{ question.solution }}</p>
+  </article>
+{% endfor %}</div>
+{% endblock %}
