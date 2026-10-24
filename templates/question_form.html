@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ "Edit question" if question else "Add question" }} · Admin{% endblock %}
+{% block content %}
+{% set saved_options = question.options if question else {} %}
+<section class="form-page">
+  <a class="back-link" href="{{ url_for('admin_dashboard') }}">← Back to dashboard</a>
+  <div class="section-heading"><div><span class="eyebrow">QUESTION BANK</span><h1>{{ "Edit question" if question else "Add a question" }}</h1></div></div>
+  <form method="post" class="card editor-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="form-grid">
+      <div><label for="exam">Exam <span class="muted">(optional for practice)</span></label><select id="exam" name="exam"><option value="">Unspecified practice question</option>{% for value in ["JEE Main", "JEE Advanced"] %}<option value="{{ value }}" {% if request.form.get('exam', question.exam if question else '') == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+      <div><label for="year">Year <span class="muted">(optional)</span></label><input id="year" name="year" type="number" min="2002" max="2100" value="{{ request.form.get('year', question.year if question and question.year else '') }}"></div>
+      <div class="span-2"><label for="session">Session / shift <span class="muted">(optional)</span></label><input id="session" name="session" placeholder="Only for verified session-specific questions" value="{{ request.form.get('session', question.session if question and question.session else '') }}"></div>
+      <div><label for="subject">Subject</label><select id="subject" name="subject" required>{% for value in ["Physics", "Chemistry", "Mathematics"] %}<option value="{{ value }}" {% if request.form.get('subject', question.subject if question else '') == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+      <div><label for="chapter">Chapter</label><input id="chapter" name="chapter" required value="{{ request.form.get('chapter', question.chapter if question else '') }}"></div>
+      <div class="span-2"><label for="topic">Topic <span class="muted">(optional)</span></label><input id="topic" name="topic" value="{{ request.form.get('topic', question.topic if question and question.topic else '') }}"></div>
+      <div class="span-2"><label for="question_text">Question text</label><textarea id="question_text" name="question_text" rows="5" required placeholder="Enter original or authorized question text. LaTeX notation such as \(x^2\) is supported.">{{ request.form.get('question_text', question.question_text if question else '') }}</textarea><span class="field-hint">MathJax delimiters: \(...\) inline, \[...\] on a separate line.</span></div>
+      <div class="span-2"><label for="image_url">Image / diagram URL <span class="muted">(optional)</span></label><input id="image_url" name="image_url" type="url" placeholder="https://…" value="{{ request.form.get('image_url', question.image_url if question and question.image_url else '') }}"></div>
+      {% for key in ["a", "b", "c", "d"] %}<div><label for="option_{{ key }}">Option {{ key|upper }}</label><textarea id="option_{{ key }}" name="option_{{ key }}" rows="2" required>{{ request.form.get('option_' ~ key, saved_options.get(key|upper, '')) }}</textarea></div>{% endfor %}
+      <div><label for="correct_answer">Correct answer</label><select id="correct_answer" name="correct_answer" required>{% for value in ["A", "B", "C", "D"] %}<option value="{{ value }}" {% if request.form.get('correct_answer', question.correct_answer if question else '') == value %}selected{% endif %}>{{ value }}</option>{% endfor %}</select></div>
+      <div><label for="marks_correct">Marks for correct answer</label><input id="marks_correct" name="marks_correct" type="number" step="0.01" min="0.01" max="100" required value="{{ request.form.get('marks_correct', question.marks_correct if question else '4') }}"></div>
+      <div><label for="marks_incorrect">Negative marks</label><input id="marks_incorrect" name="marks_incorrect" type="number" step="0.01" min="0" max="100" required value="{{ request.form.get('marks_incorrect', question.marks_incorrect if question else '1') }}"></div>
+      <div class="span-2"><label for="solution">Detailed solution / explanation <span class="muted">(optional)</span></label><textarea id="solution" name="solution" rows="6">{{ request.form.get('solution', question.solution if question and question.solution else '') }}</textarea></div>
+    </div>
+    <div class="form-actions"><a class="button secondary" href="{{ url_for('admin_dashboard') }}">Cancel</a><button class="button primary" type="submit">Save question</button></div>
+  </form>
+</section>
+{% endblock %}

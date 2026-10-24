@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Results · {{ test.title }}{% endblock %}
+{% block head %}<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>{% endblock %}
+{% block content %}
+<section class="result-heading"><span class="eyebrow">TEST COMPLETE</span><h1>Well done, {{ student_name|e }}.</h1><p class="muted">Here is your performance summary for <strong>{{ test.title }}</strong>.</p></section>
+<section class="score-panel card">
+  <div class="score-main"><span>YOUR SCORE</span><strong>{{ result.score }} <small>/ {{ result.maximum }}</small></strong><div class="score-track"><i style="width: {{ [result.percentage, 100]|min }}%"></i></div><span>{{ result.percentage }}% of available marks</span></div>
+  <div class="score-stat"><strong>{{ result.correct }}</strong><span>Correct</span></div><div class="score-stat"><strong>{{ result.wrong }}</strong><span>Incorrect</span></div><div class="score-stat"><strong>{{ result.unattempted }}</strong><span>Unattempted</span></div><div class="score-stat"><strong>{{ result.accuracy }}%</strong><span>Accuracy (attempted)</span></div>
+</section>
+<section class="section-heading"><div><span class="eyebrow">ANSWER REVIEW</span><h2>Solutions & explanations</h2></div></section>
+<div class="review-list">
+  {% for item in result.review %}
+    <article class="card review-card">
+      <header><span class="tag">{{ item.subject }} · {{ item.chapter }}</span><span class="review-status {% if not item.chosen %}neutral{% elif item.chosen == item.correct_answer %}good{% else %}bad{% endif %}">{% if not item.chosen %}Not attempted{% elif item.chosen == item.correct_answer %}Correct{% else %}Incorrect{% endif %}</span></header>
+      <h3 class="math-content">{{ item.question_text }}</h3>
+      {% if item.image_url %}<img class="question-image" src="{{ item.image_url }}" alt="Question diagram" loading="lazy">{% endif %}
+      <p class="answer-line">Your answer: <strong>{{ item.chosen or "Not attempted" }}</strong>{% if item.chosen %} · Correct answer: <strong>{{ item.correct_answer }}</strong>{% endif %}</p>
+      <p class="solution math-content"><strong>Solution</strong><br>{{ item.solution }}</p>
+      <p class="muted small">Marks for this question: {{ item.marks_awarded }}</p>
+    </article>
+  {% endfor %}
+</div>
+<a href="{{ url_for('home') }}" class="button primary">Back to available tests</a>
+{% endblock %}
