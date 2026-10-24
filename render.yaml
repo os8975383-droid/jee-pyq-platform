@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: jee-exam-platform
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --workers 2 --bind 0.0.0.0:$PORT app:app
+    healthCheckPath: /healthz
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DATABASE_BACKEND
+        value: supabase
+      - key: FLASK_DEBUG
+        value: "false"
+      - key: SESSION_COOKIE_SECURE
+        value: "true"
+      - key: FLASK_SECRET_KEY
+        generateValue: true
+      - key: ADMIN_USERNAME
+        sync: false
+      - key: ADMIN_PASSWORD_HASH
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false

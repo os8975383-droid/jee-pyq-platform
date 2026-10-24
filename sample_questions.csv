@@ -1,0 +1,31 @@
+exam,year,session,subject,chapter,topic,question_text,image_url,option_a,option_b,option_c,option_d,correct_answer,solution,marks_correct,marks_incorrect
+,,,Mathematics,Sets,,"If A = {1, 2, 3, 4} and B = {3, 4, 5}, then n(A ∪ B) is:",,"3","4","5","7",C,,4,1
+,,,Mathematics,Sets,,"If n(A) = 35, n(B) = 28 and n(A ∩ B) = 12, find n(A ∪ B).",,"51","63","75","40",A,,4,1
+,,,Mathematics,Basic Mathematics,,"For real x, if |2x − 6| = 4, the sum of all possible values of x is:",,"3","6","4","2",B,,4,1
+,,,Mathematics,Basic Mathematics,,"The solution set of x² − 5x + 6 > 0 is:",,"(2, 3)","(−∞, 2) ∪ (3, ∞)","(−∞, 3)","(2, ∞)",B,,4,1
+,,,Mathematics,Quadratic Equations,,"If α and β are the roots of x² − 7x + 10 = 0, then α² + β² equals:",,"29","39","49","10",A,,4,1
+,,,Mathematics,Quadratic Equations,,"For what value of k does x² + 4x + k = 0 have equal roots?",,"2","4","−4","8",B,,4,1
+,,,Mathematics,Quadratic Equations,,"If one root of x² − (m + 1)x + m = 0 is 3, then m equals:",,"1","2","3","4",C,,4,1
+,,,Mathematics,Sequence and Series,,"The 10th term of the AP 3, 7, 11, 15, … is:",,"35","39","40","43",B,,4,1
+,,,Mathematics,Sequence and Series,,"The sum of the first 10 terms of the AP 2, 5, 8, 11, … is:",,"145","150","155","160",C,,4,1
+,,,Mathematics,Sequence and Series,,"A GP has first term 3 and common ratio 2. Its first 5 terms sum to:",,"45","63","93","96",C,,4,1
+,,,Physics,Units and Measurements,,"The dimensional formula of Planck's constant is:",,"[ML²T⁻¹]","[MLT⁻²]","[ML²T⁻²]","[M⁰L⁰T⁻¹]",A,,4,1
+,,,Physics,Units and Measurements,,"The measured length is (2.50 ± 0.01) cm. The percentage error is:",,"0.4%","0.04%","2.5%","1%",A,,4,1
+,,,Physics,Mathematical Tools,,"If y = x³, then dy/dx at x = 2 is:",,"6","8","12","4",C,,4,1
+,,,Physics,Mathematical Tools,,"The value of sin²θ + cos²θ is:",,"0","1","2","Depends on θ",B,,4,1
+,,,Physics,Motion in a Straight Line,,"A body starts from rest and accelerates uniformly at 2 m/s² for 5 s. Its final velocity is:",,"5 m/s","10 m/s","20 m/s","25 m/s",B,,4,1
+,,,Physics,Motion in a Straight Line,,"A body travels 60 m in 5 s at constant speed. Its speed is:",,"10 m/s","12 m/s","15 m/s","30 m/s",B,,4,1
+,,,Physics,Motion in a Plane,,"A projectile is launched at 20 m/s at 30° to the horizontal. Take g = 10 m/s². Its time of flight is:",,"1 s","2 s","√3 s","4 s",B,,4,1
+,,,Physics,Motion in a Plane,,"Two perpendicular vectors have magnitudes 3 and 4 units. The magnitude of their resultant is:",,"1","5","7","12",B,,4,1
+,,,Physics,Scalars and Vectors,,"Which of the following is a vector quantity?",,"Speed","Distance","Mass","Displacement",D,,4,1
+,,,Physics,Scalars and Vectors,,"Two vectors of magnitudes 6 and 8 units act in the same direction. Their resultant magnitude is:",,"2","10","14","48",C,,4,1
+,,,Chemistry,Periodic Table,,"Which of the following has the highest first ionization enthalpy?",,"B","C","N","O",C,"Nitrogen has a stable half-filled 2p³ configuration.",4,1
+,,,Chemistry,Periodic Table,,"Which species has the largest radius?",,"O²⁻","F⁻","Na⁺","Mg²⁺",A,"These species are isoelectronic; radius decreases as nuclear charge increases.",4,1
+,,,Chemistry,Structure of Atom,,"The maximum number of electrons in a shell with principal quantum number n = 4 is:",,"8","16","32","18",C,"Maximum electrons = 2n² = 32.",4,1
+,,,Chemistry,Structure of Atom,,"The de Broglie wavelength of a particle is λ = h/p. If its momentum doubles, its wavelength becomes:",,"2λ","λ/2","4λ","λ",B,"Wavelength is inversely proportional to momentum.",4,1
+,,,Chemistry,Mole Concept,,"The number of oxygen atoms present in 0.5 mol of H₂SO₄ is:",,"0.5 Nₐ","Nₐ","2 Nₐ","4 Nₐ",C,"0.5 mol × 4 oxygen atoms per molecule = 2Nₐ oxygen atoms.",4,1
+,,,Chemistry,Mole Concept,,"A 5.3 g sample of Na₂CO₃ (molar mass 106 g mol⁻¹) contains how many moles?",,"0.05 mol","0.1 mol","0.5 mol","1 mol",A,"Moles = 5.3/106 = 0.05 mol.",4,1
+,,,Chemistry,Chemical Bonding,,"According to VSEPR theory, the molecular shape of SF₄ is:",,"Tetrahedral","Square planar","See-saw","Trigonal planar",C,"SF₄ has four bonding pairs and one lone pair around sulfur.",4,1
+,,,Chemistry,Chemical Bonding,,"Which molecule has zero dipole moment despite having polar bonds?",,"H₂O","NH₃","CO₂","SO₂",C,"CO₂ is linear and symmetrical, so its bond dipoles cancel.",4,1
+,,,Chemistry,Chemical Bonding,,"According to molecular orbital theory, the bond order of O₂⁺ is:",,"1.5","2","2.5","3",C,"Removing an electron from an antibonding orbital increases the bond order to 2.5.",4,1
+,,,Chemistry,Chemical Bonding,,"Which species has the highest bond order?",,"O₂","O₂⁺","O₂⁻","O₂²⁻",B,"The bond orders are 2, 2.5, 1.5 and 1 respectively.",4,1
